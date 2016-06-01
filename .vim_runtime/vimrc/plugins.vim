@@ -41,9 +41,9 @@ nmap <leader>o :NERDTreeToggle<cr>
 "------------------------------------------------------------------------------
 
 " Shortcuts, type <leader>l to quickly navigate to necessary buffer
-map <leader>l :BufExplorer<cr>
-imap <leader>l <esc>:BufExplorer<cr>
-vmap <leader>l <esc>:BufExplorer<cr>
+map <leader>k :BufExplorer<cr>
+imap <leader>k <esc>:BufExplorer<cr>
+vmap <leader>k <esc>:BufExplorer<cr>
 
 
 "------------------------------------------------------------------------------
