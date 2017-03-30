@@ -122,3 +122,28 @@ fi
 GIT_PROMPT_ONLY_IN_REPO=1
 GIT_PROMT_THEME=Custom
 source ~/.bash-git-prompt/gitprompt.sh
+
+pushd()
+{
+  if [ $# -eq 0 ]; then
+    DIR="${HOME}"
+  else
+    DIR="$1"
+  fi
+
+  builtin pushd "${DIR}" > /dev/null
+}
+
+pushd_builtin()
+{
+  builtin pushd > /dev/null
+}
+
+popd()
+{
+  builtin popd > /dev/null
+}
+
+alias cd='pushd'
+alias back='popd'
+alias flip='pushd_builtin'
