@@ -10,3 +10,5 @@ nnoremap <Leader>l :call NumberToggle()<cr>
 
 autocmd InsertEnter * :set rnu!
 autocmd InsertLeave * :set rnu
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+autocmd FileType rb setlocal shiftwidth=2 tabstop=2
