@@ -157,8 +157,12 @@ dls()
 
 goto()
 {
-    bhist=($(dirs -p) )
-    cd ${bhist["$(($@))"]}
+    max=$((`dirs  | wc -w` - 1))
+    if [ "$@" -le "$max" ]
+      then
+        bhist=($(dirs -p) )
+        cd ${bhist["$(($@))"]}
+    fi
 }
 
 alias cd='pushd'
