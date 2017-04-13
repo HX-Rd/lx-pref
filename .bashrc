@@ -144,6 +144,23 @@ popd()
   builtin popd > /dev/null
 }
 
+dls()
+{
+  counter=$((`dirs  | wc -w` - 1))
+  bhist=($(dirs -p) )
+  pad='    '
+  for ((i=$counter ; i >= 0 ; i--))
+  do
+    printf "%s%s%s\n" $i "${pad:${#i}}" ${bhist[$i]}
+  done
+}
+
+goto()
+{
+    bhist=($(dirs -p) )
+    cd ${bhist["$(($@))"]}
+}
+
 alias cd='pushd'
 alias back='popd'
 alias flip='pushd_builtin'
