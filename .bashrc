@@ -261,6 +261,6 @@ alias cd='pushd'
 alias bb='back_stack'
 alias ff='forward_stack'
 alias ll='list_stack_reverse'
-alias goto='goto_stack'
+alias gg='goto_stack'
 alias dcl='clear_directory_stack'
 # Directory stack ends
