@@ -124,6 +124,9 @@ GIT_PROMPT_ONLY_IN_REPO=1
 GIT_PROMT_THEME=Custom
 source ~/.bash-git-prompt/gitprompt.sh
 
+# Directory stack begins
+DIR_STACK_POINTER=0
+DIR_STACK_SIZE=0
 pushd()
 {
   if [ $# -eq 0 ]; then
@@ -133,6 +136,8 @@ pushd()
   fi
 
   builtin pushd "${DIR}" > /dev/null
+  DIR_STACK_POINTER=0
+  DIR_STACK_SIZE=$(dirs -v | tail -n 1 | awk '{print $1}')
 }
 
 pushd_builtin()
@@ -145,7 +150,118 @@ popd()
   builtin popd > /dev/null
 }
 
+stack_list()
+{
+  dirs -v | awk -v stackp=$DIR_STACK_POINTER '{
+    if ($1 == stackp)
+      if ($1 == 0)
+        printf "%-25s%s\n","Current dir",$2
+      else
+        printf "%-15s%-10s%s\n","->",$1,$2
+    else
+      if ($1 == 0)
+        printf "%-25s%s\n","Current dir",$2
+      else
+        printf "%-15s%-10s%s\n","  ",$1,$2
+  }'
+}
+
+list_stack_reverse()
+{
+  stack_list | awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }'
+}
+
+back_stack()
+{
+  if [ $(($DIR_STACK_POINTER)) -lt $(($DIR_STACK_SIZE)) ]
+  then
+    if [ $(($DIR_STACK_POINTER)) -eq 0 ]
+    then
+      builtin pushd $PWD > /dev/null
+      ((DIR_STACK_POINTER++))
+      DIR_STACK_SIZE=$(dirs -v | tail -n 1 | awk '{print $1}')
+    fi
+    ((DIR_STACK_POINTER++))
+    NEXT_DIR_POINTER=$( dirs -v | grep -w "$DIR_STACK_POINTER\s\s" | awk ' {print $2}' )
+    if [ "$NEXT_DIR_POINTER" = "~" ]
+    then
+      \cd $HOME
+    else
+      \cd $NEXT_DIR_POINTER
+    fi
+  fi
+  list_stack_reverse
+}
+
+forward_stack()
+{
+  if [ $(($DIR_STACK_POINTER)) -gt 0 ]
+  then
+    ((DIR_STACK_POINTER--))
+    if [ $(($DIR_STACK_POINTER)) -gt 1 ]
+    then 
+      NEXT_DIR_POINTER=$( dirs -v | grep -w "$DIR_STACK_POINTER\s\s" | awk ' {print $2}' )
+      if [ "$NEXT_DIR_POINTER" = "~" ]
+      then
+        \cd $HOME
+      else
+        \cd $NEXT_DIR_POINTER
+      fi
+    else
+      builtin popd > /dev/null
+      DIR_STACK_SIZE=$(dirs -v | tail -n 1 | awk '{print $1}')
+      DIR_STACK_POINTER=0
+    fi
+  fi
+  list_stack_reverse
+}
+
+
+goto_stack()
+{
+  DIR_STACK_SIZE=$(dirs -v | tail -n 1 | awk '{print $1}')
+  if [ $(($DIR_STACK_SIZE)) -lt $(($1)) ]
+  then
+    echo "The stack is smaller than argument"
+  else
+    GOTO_POINTER=$1
+    if [ $(($DIR_STACK_POINTER)) -eq 0 ]
+    then
+      builtin pushd $PWD > /dev/null
+      DIR_STACK_SIZE=$(dirs -v | tail -n 1 | awk '{print $1}')
+      ((GOTO_POINTER++))
+    fi
+    if [ $(($GOTO_POINTER)) -gt 1 ]
+    then 
+      NEXT_DIR_POINTER=$( dirs -v | grep -w "$GOTO_POINTER\s\s" | awk ' {print $2}' )
+      if [ "$NEXT_DIR_POINTER" = "~" ]
+      then
+        \cd $HOME
+      else
+        \cd $NEXT_DIR_POINTER
+      fi
+      DIR_STACK_POINTER=$GOTO_POINTER
+    else
+      builtin popd > /dev/null
+      DIR_STACK_SIZE=$(dirs -v | tail -n 1 | awk '{print $1}')
+      DIR_STACK_POINTER=0
+    fi
+  fi
+  list_stack_reverse
+}
+
+clear_directory_stack()
+{
+  dirs -c
+  DIR_STACK_SIZE=0
+  DIR_STACK_POINTER=0
+  list_stack_reverse
+}
+
 alias cd='pushd'
-alias back='popd'
-alias flip='pushd_builtin'
-alias dls='dirs -v'
+alias bk='back_stack'
+alias fw='forward_stack'
+alias dhi='list_stack_reverse'
+alias goto='goto_stack'
+alias dcl='clear_directory_stack'
+# Directory stack ends
