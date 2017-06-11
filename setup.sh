@@ -7,8 +7,6 @@ if [ ! -z "$centos" ]
 then
     distro="centos"
 fi
-chmod -R +x ./scripts
-sudo $HOME/lx-pref/scripts/$distro/install-support-packages.sh
 files=$(\ls -a $HOME/lx-pref)
 backup_folder=$HOME/env-backup
 mkdir $HOME/env-backup

@@ -9,6 +9,7 @@ fi
 if [ $distro == "centos" ]
 then
     sudo yum install git -y
+    sudo yum install vim -y
 fi
 mkdir $HOME/lx-pref
 git clone https://github.com/HX-Rd/lx-pref.git $HOME/lx-pref
