@@ -12,5 +12,6 @@ then
 fi
 mkdir $HOME/lx-pref
 git clone https://github.com/HX-Rd/lx-pref.git $HOME/lx-pref
-#find $HOME/lx-pref/ -type f -iname "*.sh" -exec chmod +x {} \;
-#$HOME/lx-pref/setup.sh
+find $HOME/lx-pref/ -type f -iname "*.sh" -exec chmod +x {} \;
+$HOME/lx-pref/setup.sh
+rm -rf /$HOME/lx-pref

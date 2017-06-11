@@ -8,8 +8,8 @@ then
     distro="centos"
 fi
 chmod -R +x ./scripts
-sudo ./scripts/$distro/install-support-packages.sh
-files=$(\ls -a .)
+sudo $HOME/lx-pref/scripts/$distro/install-support-packages.sh
+files=$(\ls -a $HOME/lx-pref)
 backup_folder=$HOME/env-backup
 mkdir $HOME/env-backup
 blacklist=(
@@ -31,7 +31,7 @@ do
     fi
     if [[ ! " ${blacklist[@]} " =~ " ${file} " ]]
     then
-        mv ./$file $HOME/$file
+        mv $HOME/lx-pref/$file $HOME/$file
     fi
 
 done
