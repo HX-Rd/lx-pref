@@ -9,8 +9,6 @@ then
 fi
 chmod -R +x ./scripts
 sudo ./scripts/$distro/install-support-packages.sh
-mkdir $HOME/lx-pref
-git clone https://github.com/HX-Rd/lx-pref.git $HOME/lx-pref
 files=$(\ls -a .)
 backup_folder=$HOME/env-backup
 mkdir $HOME/env-backup
@@ -19,6 +17,7 @@ blacklist=(
     '..'
     '.git'
     'setup.sh'
+    'install.sh'
     'scripts'
 )
 for file in $files
