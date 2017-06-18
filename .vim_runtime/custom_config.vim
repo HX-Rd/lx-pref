@@ -17,3 +17,9 @@ augroup vagrant
   au!
   au BufRead,BufNewFile Vagrantfile set filetype=ruby
 augroup END
+
+" Split resize
+map þ <C-W>+
+map Þ <C-W>-
+map ö <C-W><
+map Ö <C-W>>
