@@ -264,3 +264,6 @@ alias ll='list_stack_reverse'
 alias gg='goto_stack'
 alias dcl='clear_directory_stack'
 # Directory stack ends
+
+# Vim alias
+alias vimpyd='vim -c ":call StartPyDebug()"'

@@ -23,3 +23,12 @@ map þ <C-W>+
 map Þ <C-W>-
 map ö <C-W><
 map Ö <C-W>>
+
+set shortmess=a
+set cmdheight=2
+
+function! StartPyDebug()
+    Pyclewn pdb %:p
+    sleep 200m
+    Cmapkeys
+endfunc

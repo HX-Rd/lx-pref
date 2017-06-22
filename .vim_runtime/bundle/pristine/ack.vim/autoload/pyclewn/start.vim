@@ -82,12 +82,12 @@ function s:interrupt(args)
     endif
 
     " hack to prevent Vim being stuck in the command line with '--More--'
-    echohl WarningMsg
-    echo "About to run the 'interrupt' command."
-    call inputsave()
-    call input("Press the <Enter> key to continue.")
+"    echohl WarningMsg
+"    echo "About to run the 'interrupt' command."
+"    call inputsave()
+"    call input("Press the <Enter> key to continue.")
     call inputrestore()
-    echohl None
+"    echohl None
     exe prefix . "interrupt"
 endfunction
 
