@@ -137,4 +137,7 @@ endif
 "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-
+"------------------------------------------------------------------------------
+" Pyclewn
+"------------------------------------------------------------------------------
+let g:pyclewn_args = "--window=bottom"
