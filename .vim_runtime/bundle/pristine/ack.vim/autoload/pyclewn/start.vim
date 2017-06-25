@@ -81,6 +81,7 @@ function s:interrupt(args)
         let prefix = argl[idx + 1]
     endif
 
+"HERE
     " hack to prevent Vim being stuck in the command line with '--More--'
 "    echohl WarningMsg
 "    echo "About to run the 'interrupt' command."
@@ -88,6 +89,7 @@ function s:interrupt(args)
 "    call input("Press the <Enter> key to continue.")
     call inputrestore()
 "    echohl None
+"ENDHERE
     exe prefix . "interrupt"
 endfunction
 
@@ -154,6 +156,7 @@ function s:start(args, pdb_attach)
 
     " Source vim script.
     if has("netbeans_enabled")
+        call FixClewnGeneratedFunctions(l:tmpfile)
         exe "source " . l:tmpfile
         call s:info("The netbeans socket is connected.\n")
         let argl = split(a:args)

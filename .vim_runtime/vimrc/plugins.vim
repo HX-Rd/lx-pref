@@ -141,3 +141,18 @@ endif
 " Pyclewn
 "------------------------------------------------------------------------------
 let g:pyclewn_args = "--window=bottom"
+function! FixClewnGeneratedFunctions(filepath)
+    execute "edit " . a:filepath
+    let unmapkeysfunc = '%s/function s:unmapkeys()/function! s:unmapkeys()/g'
+    execute unmapkeysfunc
+    let exitclewnfunc = '%s/function s:exitclewn()/function! s:exitclewn()/g'
+    execute exitclewnfunc
+    let argfunc = '%s/function s:Arg_(A, L, P)/function! s:Arg_(A, L, P)/g'
+    execute argfunc
+    let arghelpfunc = '%s/function s:Arg_help(A, L, P)/function! s:Arg_help(A, L, P)/g'
+    execute arghelpfunc
+    let argloglevel = '%s/function s:Arg_loglevel(A, L, P)/function! s:Arg_loglevel(A, L, P)/g'
+    execute argloglevel
+    write
+    Bclose
+endfun

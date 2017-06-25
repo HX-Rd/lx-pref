@@ -19,11 +19,12 @@ augroup vagrant
 augroup END
 
 " Split resize
-map þ <C-W>+
-map Þ <C-W>-
-map ö <C-W><
-map Ö <C-W>>
+nnoremap þ <C-W>+
+nnoremap Þ <C-W>-
+nnoremap ö <C-W><
+nnoremap Ö <C-W>>
 
+" Pyclewn
 set shortmess=a
 set cmdheight=2
 
@@ -32,3 +33,11 @@ function! StartPyDebug()
     sleep 200m
     Cmapkeys
 endfunc
+
+function! StopPyDebug()
+    Cunmapkeys
+    Cexitclewn
+endfunc
+
+nnoremap <leader>j :execute "call StartPyDebug()"<CR>
+nnoremap <leader>h :execute "call StopPyDebug()"<CR>
