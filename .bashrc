@@ -267,3 +267,5 @@ alias dcl='clear_directory_stack'
 
 # Vim alias
 alias vimpyd='vim -c ":call StartPyDebug()"'
+TERM=xterm-256color
+export TERM
