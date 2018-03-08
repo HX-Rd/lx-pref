@@ -269,3 +269,7 @@ alias dcl='clear_directory_stack'
 alias vimpyd='vim -c ":call StartPyDebug()"'
 TERM=xterm-256color
 export TERM
+
+# History key bindings
+bind '"\e[A":history-search-backward'
+bind '"\e[B":history-search-forward'
