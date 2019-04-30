@@ -16,7 +16,6 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTFILE=/vagrant/.bash_history_$(hostname)
 HISTSIZE=10000
 HISTFILESIZE=20000
 
